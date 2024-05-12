@@ -129,7 +129,43 @@ const charadex = (options) => {
         }
 
       })();
+        /* ================================================================ */
+      /* koda being silly
+      /* ================================================================ */
+(() => {
+
+        if (sheetArray[0].hasOwnProperty(charadexInfo.buttonParam)) {
+
+          $('#filter-buttons').show();
+
+          // Creates Param Object Array
+          let urlParamArray = [];
+          const uniqueArray = [...new Set(sheetArray.map(i => i[charadexInfo.buttonParam]))];
+          uniqueArray.forEach((i) => {
+            urlParamArray.push({
+              title: i,
+              link: url.href.split('&')[0].split('?')[0] + '?' + charadexInfo.buttonParam + '=' + i.toLowerCase(),
+            });
+          });
+
+          // Adds All Button
+          urlParamArray.unshift({ title: 'All', link: url.href.split('&')[0].split('?')[0]});
+      
+          // Sorts list
+          urlParamArray.sort((a, b) => {return a.title - b.title});
         
+          // List.js options
+          let buttonOptions = {
+            valueNames: ['title', {name: 'link', attr: 'href'}],
+            item: 'charadex-filter-buttons',
+          };
+  
+          // Creates singular item
+          let urlParamButtons = new List("filter-buttons", buttonOptions, urlParamArray);
+
+        }
+
+      })();
 
       /* ================================================================ */
       /* Modifying Array
